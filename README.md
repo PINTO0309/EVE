@@ -9,7 +9,10 @@ The code accompanying our ECCV 2020 publication and dataset, EVE.
 
 ## Setup
 
-Preferably, setup a Docker image or virtual environment ([virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html) is recommended) for this repository. Please note that we have tested this code-base in the following environments:
+This repository is managed with [uv](https://docs.astral.sh/uv/) and is pinned to Python 3.10.
+Dependencies are fully locked in `uv.lock`.
+
+The original code-base was tested in the following legacy environments:
 * Ubuntu 18.04 / A Linux-based cluster system (CentOS 7.8)
 * Python 3.6 / Python 3.7
 * PyTorch 1.5.1
@@ -21,9 +24,10 @@ Clone this repository somewhere with:
 
 Then from the base directory of this repository, install all dependencies with:
 
-    pip install -r requirements.txt
+    uv sync --frozen
 
-Please note the [PyTorch official installation guide](https://pytorch.org/get-started/locally/) for setting up the `torch` and `torchvision` packages on your specific system.
+The locked PyTorch packages use the default PyPI wheels. `requirements.txt` is exported from the
+uv lockfile for pip compatibility; prefer `uv sync --frozen` for reproducible setup.
 
 You will also need to setup **ffmpeg** for video decoding. On Linux, we recommend installing distribution-specific packages (usually named `ffmpeg`). If necessary, check out the [official download page](https://ffmpeg.org/download.html) or [compilation instructions](https://trac.ffmpeg.org/wiki/CompilationGuide).
 
@@ -57,7 +61,7 @@ An example config JSON file can be found at `src/configs/sample_gsheet.json`.
 
 ### Training a model
 
-To train a model, simply run `python train.py` from `src/` with the appropriate configuration changes that are desired (see __"Configuration file system"__ above).
+To train a model, run `uv run python src/train.py` from the repository root with the appropriate configuration changes that are desired (see __"Configuration file system"__ above).
 
 Note, that in order to resume the training of an existing model you must provide the path to the output folder via the `--resume-from` argument.
 
@@ -65,7 +69,7 @@ Also, at every fresh run of `train.py`, a unique identifier is generated to prod
 
 ### Running inference
 
-The single-sample inference script at `src/inference.py` takes in the same arguments as `train.py` but expects two arguments in particular:
+The single-sample inference script can be run with `uv run python src/inference.py`. It takes in the same arguments as `train.py` but expects two arguments in particular:
 
 * `--input-path` is the path to a `basler.mp4` or `webcam_l.mp4` or `webcam_c.mp4` or `webcam_r.mp4` that exists in the EVE dataset.
 * `--output-path` is a path to a desired output location (ending in `.mp4`).

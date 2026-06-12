@@ -171,7 +171,7 @@ class GoogleSheetLogger:
                 elif np.isinf(value):
                     new_row[index] = 'Inf'
                 else:
-                    new_row[index] = np.asscalar(value)
+                    new_row[index] = value.item()
             elif isinstance(value, np.ndarray) and value.ndim == 0:
                 new_row[index] = value.item()
             elif hasattr(value, '__len__') and len(value) > 0:

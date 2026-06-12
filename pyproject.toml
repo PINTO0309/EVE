@@ -1,0 +1,19 @@
+[project]
+name = "eve"
+version = "0.1.0"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "coloredlogs",
+    "ffmpeg-python",
+    "gspread",
+    "h5py",
+    "numpy",
+    "oauth2client",
+    "opencv-python",
+    "tensorboardX",
+    "torch",
+    "torchvision",
+]
+
+[tool.uv]
+package = false

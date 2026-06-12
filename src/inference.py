@@ -136,7 +136,7 @@ for step, inputs, outputs in inference.iterator(model, dataloader, create_images
                 if we_have_gt:
                     _PoG_gt[:, 0] = 1920.0 - _PoG_gt[:, 0]
                     _g_gt[:, 1] = -_g_gt[:, 1]
-            _all_valid = np.ones((sequence_len, ), dtype=np.bool)
+            _all_valid = np.ones((sequence_len, ), dtype=bool)
 
             if 'screen' in suffix:
                 # Choose what to draw
